@@ -42,6 +42,8 @@ public class ConsultasAcceso {
         try {
             pstmt = con.prepareStatement("select id_persona,contrasenia from medico where id_persona = ?");
             pstmt.setString(1, id);
+            
+            System.out.println(pstmt.toString());
             resultado = pstmt.executeQuery();
             
             if (resultado != null) {
