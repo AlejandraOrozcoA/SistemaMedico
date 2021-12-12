@@ -8,9 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
 import java.util.UUID;
 import javax.swing.JOptionPane;
 import sistemamedico.Login;
+import sistemamedico.UtilsEntradas;
 
 /**
  *
@@ -23,17 +26,6 @@ public class AltasBD {
     private ConexionBD objBD;
     
     private Login log;
-    
-    private int obtenerEnteroPseudoUnico(){
-        long primerosBits = UUID.randomUUID().getMostSignificantBits();
-        long ultimosBits = UUID.randomUUID().getLeastSignificantBits();
-        long enteroLargo = primerosBits ^ ultimosBits;
-        if(enteroLargo < 0) enteroLargo *= -1;
-        System.out.println(enteroLargo);
-        int entero = (int) Math.sqrt(enteroLargo);
-        System.out.println(entero);
-        return entero;        
-    }
 
     public AltasBD() {
         objBD= ConexionBD.getInstance();
@@ -47,30 +39,48 @@ public class AltasBD {
         String apellido_materno,
         int edad,
         String telefono
-    ){
-        int id_persona = obtenerEnteroPseudoUnico();
+    ) throws Exception{                
+        int id_persona;
         
         try{            
             pstmt = con.prepareStatement(
-                "INSERT INTO persona VALUES(?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO persona("
+                    + "    id_direccion,"
+                    + "    nombre,"
+                    + "    apellido_p,"
+                    + "    apellido_m,"
+                    + "    edad,"
+                    + "    telefono"
+                    + ") VALUES(?, ?, ?, ?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS
             );
-            
-            pstmt.setInt(1, id_persona);
-            pstmt.setInt(2, 1);
+                        
+            pstmt.setInt(1, 1);
             // TODO ingresar dirección
-            pstmt.setString(3, nombre);
-            pstmt.setString(4, apellido_paterno);
-            pstmt.setString(5, apellido_materno);
-            pstmt.setInt(6, edad);
-            pstmt.setString(7, telefono);
+            pstmt.setString(2, nombre);
+            pstmt.setString(3, apellido_paterno);
+            pstmt.setString(4, apellido_materno);
+            pstmt.setInt(5, edad);
+            pstmt.setString(6, telefono);
             
-            pstmt.executeUpdate();            
-            
-            return id_persona;
+            int columnas = pstmt.executeUpdate();                        
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se creó");
+            } else {
+                ResultSet ids_generados = pstmt.getGeneratedKeys();
+                if(ids_generados.next()){
+                    id_persona = ids_generados.getInt(1);
+                } else {
+                    throw new Exception("Error. Ningún ID fue generado");
+                }
+            }
         } catch(java.sql.SQLException e){  
-            System.out.println(e.toString());
-            return -1;
-        }           
+            throw new Exception("Error conectándose a la BD: " + e.toString());
+        }  
+        
+        System.out.println(id_persona);
+        
+        return id_persona;
     }
     
     public void registrarMedico(
@@ -84,37 +94,48 @@ public class AltasBD {
         String consultorio,
         String especialidad,
         String contra
-    ){
+    ) throws Exception{
         int id_persona = registrarPersona(
             nombre,
             apellido_paterno,
             apellido_materno,
             edad,
             telefono          
-        );        
-        int id_medico = obtenerEnteroPseudoUnico();
+        );                
         
         try{            
             pstmt = con.prepareStatement(
-                "INSERT INTO medico VALUES(?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO medico("
+                    + "    id_persona,"
+                    + "    cedula,"
+                    + "    consultorio,"
+                    + "    turno,"
+                    + "    especialidad,"
+                    + "    contrasenia)"
+                    + "VALUES(?, ?, ?, ?, ?, ?)"                
             );
+                        
+            pstmt.setInt(1, id_persona);
+            pstmt.setString(2, cedula);
+            pstmt.setString(3, consultorio);
+            pstmt.setString(4, turno);
+            pstmt.setString(5, especialidad);
+            pstmt.setString(6, contra);
             
-            pstmt.setLong(1, id_medico);
-            pstmt.setInt(2, id_persona);
-            pstmt.setString(3, cedula);
-            pstmt.setString(4, consultorio);
-            pstmt.setString(5, turno);
-            pstmt.setString(6, especialidad);
-            pstmt.setString(7, contra);
+            System.out.println(pstmt.toString());
             
-            pstmt.executeUpdate();
-            
-            JOptionPane.showMessageDialog(
-                null,
-                "Se ha registrado. El id de Médico es " + id_medico
-            );
+            int columnas = pstmt.executeUpdate();                        
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se creó");
+            } else {                                    
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Se ha registrado. El id es " + id_persona
+                );                
+            }       
         } catch(java.sql.SQLException e){  
-            System.out.println(e.toString());            
+            System.out.println(e.toString());  
+            throw new Exception("Error conectándose a la BD");
         }
     }
     
@@ -124,8 +145,72 @@ public class AltasBD {
         String apellido_materno,
         int edad,
         String telefono,
-        String turno
-    ){
+        String turno,
+        String contra
+    ) throws Exception {
+        int id_persona = registrarPersona(
+            nombre,
+            apellido_paterno,
+            apellido_materno,
+            edad,
+            telefono          
+        );                
+        
+        try{            
+            pstmt = con.prepareStatement(
+                "INSERT INTO secretaria("
+                    + "    id_persona,"
+                    + "    turno,"                    
+                    + "    contrasenia)"
+                    + "VALUES(?, ?, ?)"                
+            );
+                        
+            pstmt.setInt(1, id_persona);
+            pstmt.setString(2, turno);
+            pstmt.setString(3, contra);            
+                                   
+            int columnas = pstmt.executeUpdate();                        
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se creó");
+            } else {                                    
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Se ha registrado. El id es " + id_persona
+                );                
+            }       
+        } catch(java.sql.SQLException e){  
+            System.out.println(e.toString());  
+            throw new Exception("Error conectándose a la BD");
+        }                
+    }
+    
+    public void registrarHistoriaClinica(int id_paciente) throws Exception {
+        try {
+            pstmt = con.prepareStatement(
+                "INSERT INTO historiaClinica(id_paciente) VALUES(?)"
+            );
+            
+            pstmt.setInt(1, id_paciente);            
+            
+            int columnas = pstmt.executeUpdate();
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se creó");
+            } 
+        } catch(Exception SQLException) {
+            throw new Exception("Error conectándose a la BD");
+        }
+    }
+    
+    public int registrarPaciente(
+        String nombre,
+        String apellido_paterno,
+        String apellido_materno,
+        int edad,
+        String telefono,
+        int id_medico,
+        Date fecha_nacimiento,
+        String contacto_emergencia
+    ) throws Exception {
         int id_persona = registrarPersona(
             nombre,
             apellido_paterno,
@@ -134,5 +219,44 @@ public class AltasBD {
             telefono          
         );
         
+        int id_paciente;
+        try {
+            pstmt = con.prepareStatement(
+                "INSERT INTO paciente(" + 
+                    "   id_persona," +
+                    "   id_medico," +
+                    "   fecha_n," +
+                    "   contacto_e" +
+                    ") VALUES(?, ?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS
+            );
+            
+            pstmt.setInt(1, id_persona);
+            pstmt.setInt(2, id_medico);
+            pstmt.setString(
+                3,
+                UtilsEntradas.getStringMySQLDeFecha(fecha_nacimiento)
+            );
+            pstmt.setString(4, contacto_emergencia);
+            
+            int columnas = pstmt.executeUpdate();
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se creó");
+            } else {
+                ResultSet ids_generados = pstmt.getGeneratedKeys();
+                if(ids_generados.next()){
+                    id_paciente = ids_generados.getInt(1);
+                } else {
+                    throw new Exception("Error. Ningún ID fue generado");
+                }
+            }
+        } catch(SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception("Error conectándose a la BD");
+        }
+        
+        registrarHistoriaClinica(id_paciente);                
+        
+        return id_paciente;
     }
 }

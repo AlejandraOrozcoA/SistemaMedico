@@ -24,6 +24,8 @@ public class ConexionBD {
     private Connection conexion;
     private static ConexionBD objBD = new ConexionBD();
     
+    public static String MENSAJE_ERROR = "Error conectándose a la BD";
+    
     private ConexionBD(){
         this.ip ="127.0.0.1";
         this.usuario = "root"; 
