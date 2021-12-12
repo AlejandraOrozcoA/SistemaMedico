@@ -3,13 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/vistas/menuMedico.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/vistas/AdminAcceso.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/vistas/Registro.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/sistemamedico/Login.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/Controlador/ConsultasAcceso.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/vistas/menuPrincipal.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/vistas/menuSecretaria.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/sistemamedico/Cita.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/Controlador/ConsultasAcceso.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/vistas/menuSecretaria.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/vistas/RegistroSecretaria.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/sistemamedico/UtilsEntradas.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/sistemamedico/SistemaMedico.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/Controlador/AltasBD.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/vistas/Registro.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/Controlador/ConexionBD.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/vistas/RegistroPaciente.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/vistas/AdminAcceso.java</file>
+            <file>file:/home/angel/Documents/SistemaMedico/src/sistemamedico/Medico.java</file>
         </group>
     </open-files>
 </project-private>

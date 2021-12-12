@@ -5,16 +5,33 @@
  */
 package vistas;
 
+import sistemamedico.Medico;
+import Controlador.ConsultasObjetos;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ale
  */
 public class menuMedico extends javax.swing.JFrame {
+    
+    Medico medico;
 
     /**
      * Creates new form menuMedico
      */
     public menuMedico() {
+        initComponents();
+    }
+    
+    public menuMedico(String user) {
+        ConsultasObjetos co = new ConsultasObjetos();
+        try{
+            medico = co.getMedico(user);
+        } catch(Exception e){
+            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, e.getMessage()); 
+        }
         initComponents();
     }
 

@@ -50,7 +50,7 @@ public class AdminAcceso {
             Login log = ac.consultaLoginMedico(user);
             
             if(user.equals(log.getUsuario()) && password.equals(log.getContrasenia())){
-                menuMedico ventanaGestion = new menuMedico();
+                menuMedico ventanaGestion = new menuMedico(user);
                 ventanaGestion.setVisible(true);
                 return true;
             }
