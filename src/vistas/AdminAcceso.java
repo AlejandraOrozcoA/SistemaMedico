@@ -36,8 +36,13 @@ public class AdminAcceso {
         myPanel.add(new JLabel("contraseña:"));
         myPanel.add(passField);
 
-        int result = JOptionPane.showConfirmDialog(null, myPanel,
-                "Introduzca usuario y contraseña", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(
+            null,
+            myPanel,
+            "Introduzca usuario y contraseña",
+            JOptionPane.OK_CANCEL_OPTION
+        );
+        
         if (result == JOptionPane.OK_OPTION) {
             String user, password;
             user = userField.getText();
