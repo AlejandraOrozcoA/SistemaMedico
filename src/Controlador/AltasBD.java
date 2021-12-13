@@ -259,4 +259,37 @@ public class AltasBD {
         
         return id_paciente;
     }
+    
+    public int registrarCita(int IDPaciente, Date fecha_hora) throws Exception {        
+        try{
+            pstmt = con.prepareStatement(
+                "INSERT INTO cita(" + 
+                    "   id_paciente," +
+                    "   fecha" +                    
+                    ") VALUES(?, ?)",
+                Statement.RETURN_GENERATED_KEYS
+            );
+            
+            pstmt.setInt(1, IDPaciente);
+            pstmt.setString(
+                2,
+                UtilsEntradas.getStringFHMySQLDeFecha(fecha_hora)
+            );
+            
+            int columnas = pstmt.executeUpdate();
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se creó");
+            } else {
+                ResultSet ids_generados = pstmt.getGeneratedKeys();
+                if(ids_generados.next()){
+                    return ids_generados.getInt(1);
+                } else {
+                    throw new Exception("Error. Ningún ID fue generado");
+                }
+            }
+        } catch(SQLException e){
+            System.out.println(e.toString());
+            throw new Exception("Error conectándose a la base");
+        }
+    }
 }

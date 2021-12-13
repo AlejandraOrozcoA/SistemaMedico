@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
+import sistemamedico.Cita;
 import sistemamedico.HistoriaClinica;
 import sistemamedico.Medico;
 import sistemamedico.UtilsEntradas;
@@ -30,7 +31,7 @@ public class ConsultasObjetos {
         con = objBD.getConexion();
     }  
     
-    public HistoriaClinica getHistoriaClinica(int id_paciente) throws Exception{
+    public HistoriaClinica getHistoriaClinica(int IDPaciente) throws Exception{
         try {
             pstmt = con.prepareStatement(
                 "select" +
@@ -46,7 +47,7 @@ public class ConsultasObjetos {
                 "    tamiz_auditivo " +
                 "from historiaClinica where id_paciente = ?"
             );
-            pstmt.setInt(1, id_paciente);
+            pstmt.setInt(1, IDPaciente);
                         
             resultado = pstmt.executeQuery();            
             
@@ -100,14 +101,14 @@ public class ConsultasObjetos {
         }          
     }
     
-    public Medico getMedico(String id_medico) throws Exception{
+    public Medico getMedico(String IDMedico) throws Exception{
         try {
             pstmt = con.prepareStatement(
                 "select" +
                 "    cedula, consultorio, turno, especialidad " +
                 "from medico where id_medico = ?"
             );
-            pstmt.setString(1, id_medico);
+            pstmt.setString(1, IDMedico);
                         
             resultado = pstmt.executeQuery();            
             
@@ -147,5 +148,47 @@ public class ConsultasObjetos {
             System.out.println(e.toString());
             throw new Exception(ConexionBD.MENSAJE_ERROR);
         }                
+    }
+    
+    public Cita getCita(int IDCita) throws Exception{
+        try {
+            pstmt = con.prepareStatement(
+                "select" +
+                "    id_paciente," +
+                "    fecha " +                
+                "from cita where id_cita = ?"
+            );
+            pstmt.setInt(1, IDCita);
+                        
+            resultado = pstmt.executeQuery();            
+            
+            if(resultado != null && resultado.next()){                
+                
+                int id_paciente = resultado.getInt("id_paciente");                                                                              
+                
+                String fecha_str = resultado.getString("fecha");                
+                Date fecha;                
+                try{
+                    fecha = UtilsEntradas.getFechaDeStringFHSQL(
+                        fecha_str
+                    );
+                } catch(java.lang.NullPointerException e){
+                    fecha = new Date();
+                } catch(ParseException e){
+                    System.out.println(e.toString());
+                    throw new Exception(
+                        "La fecha no está almacenada en formato " +
+                        "aaaa-mm-dd hh:mm:ss"
+                    );
+                }                
+
+                return new Cita(id_paciente, fecha);
+            } else {
+                throw new Exception("No hay cita con ese ID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
     }
 }

@@ -21,10 +21,26 @@ public class UtilsEntradas {
         return formato.parse(fecha_str);        
     }
     
+    public static Date getHoraDeString(
+        String hora_str
+    ) throws ParseException {
+        String patron = "HH:mm";
+        SimpleDateFormat formato = new SimpleDateFormat(patron);
+        return formato.parse(hora_str);        
+    }
+    
     public static Date getFechaDeStringSQL(
         String fecha_str
     ) throws ParseException{
         String patron = "yyyy-MM-dd";
+        SimpleDateFormat formato = new SimpleDateFormat(patron);
+        return formato.parse(fecha_str);
+    }
+    
+    public static Date getFechaDeStringFHSQL(
+        String fecha_str
+    ) throws ParseException{
+        String patron = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat formato = new SimpleDateFormat(patron);
         return formato.parse(fecha_str);
     }
@@ -35,9 +51,27 @@ public class UtilsEntradas {
         return formato.format(fecha);
     }
     
+    public static String getStringFHDeFecha(Date fecha) {
+        String patron = "dd/MM/yyyy HH:mm";
+        SimpleDateFormat formato = new SimpleDateFormat(patron);
+        return formato.format(fecha);
+    }
+    
+    public static String getHoradeFecha(Date fecha){
+        String patron = "HH:mm";
+        SimpleDateFormat formato = new SimpleDateFormat(patron);
+        return formato.format(fecha);
+    }
+    
     public static String getStringMySQLDeFecha(Date fecha) {
         String patron = "yyyy-MM-dd";
         SimpleDateFormat formato = new SimpleDateFormat(patron);
         return formato.format(fecha);
     }       
+    
+    public static String getStringFHMySQLDeFecha(Date fecha){
+        String patron = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat formato = new SimpleDateFormat(patron);
+        return formato.format(fecha);
+    }
 }

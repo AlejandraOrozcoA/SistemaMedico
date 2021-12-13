@@ -43,6 +43,35 @@ public class VentanasEmergentes {
         }
         return false;
     }
+
+    public static boolean getIDCita(
+        javax.swing.JFrame framePadre
+    ) throws Exception {
+        JTextField campoIDCita = new JTextField(5);        
+
+        JPanel myPanel = new JPanel();
+        myPanel.add(new JLabel("ID cita:"));
+        myPanel.add(campoIDCita);
+
+        int result = JOptionPane.showConfirmDialog(
+            null,
+            myPanel,
+            "Introduzca ID de cita",
+            JOptionPane.OK_CANCEL_OPTION
+        );
+        
+        if (result == JOptionPane.OK_OPTION) {
+            String id_cita = campoIDCita.getText();            
+                        
+            VistaCita v_cita =  new VistaCita(
+                id_cita,
+                framePadre
+            );
+            v_cita.setVisible(true);                
+            return true;                            
+        }
+        return false;
+    }
     
     public static boolean confirmarOperacion(String mensaje){               
         JPanel myPanel = new JPanel();

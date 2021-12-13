@@ -14,6 +14,7 @@ import java.util.Date;
 public class Cita {
     private int id;
     private Date fecha;
+    private int IDPaciente;
     private Paciente paciente;
     private Medico medico;
 
@@ -22,6 +23,15 @@ public class Cita {
         this.fecha = fecha;
         this.paciente = paciente;
         this.medico = medico;
+    }
+    
+    public Cita(int IDPaciente, Date fecha){
+        this.IDPaciente = IDPaciente;
+        this.fecha = fecha;
+    }
+    
+    public int getIDPaciente(){
+        return this.IDPaciente;
     }
 
     public int getId() {
