@@ -13,6 +13,7 @@ import java.util.Date;
  * @author Ale
  */
 public class HistoriaClinica {
+    private int IDHistoria;
     private Paciente paciente;
     private String ahf;
     private String apnp;
@@ -39,6 +40,19 @@ public class HistoriaClinica {
         this.tamizAuditivo = tamizAuditivo;
         this.tratamientos = tratamientos;
     }
+    
+    public HistoriaClinica(int IDHistoria, String ahf, String apnp, String perinatales, double talla, String apgar, Date hospitalizado, String complicaciones, String tamizMetabolico, String tamizAuditivo) {        
+        this.IDHistoria = IDHistoria;
+        this.ahf = ahf;
+        this.apnp = apnp;
+        this.perinatales = perinatales;
+        this.talla = talla;
+        this.apgar = apgar;
+        this.hospitalizado = hospitalizado;
+        this.complicaciones = complicaciones;
+        this.tamizMetabolico = tamizMetabolico;
+        this.tamizAuditivo = tamizAuditivo;        
+    }   
 
     public Paciente getPaciente() {
         return paciente;
@@ -46,6 +60,10 @@ public class HistoriaClinica {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+    
+    public int getIDHistoria(){
+        return this.IDHistoria;
     }
 
     public String getAhf() {

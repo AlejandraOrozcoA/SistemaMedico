@@ -8,7 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Date;
+import sistemamedico.HistoriaClinica;
 import sistemamedico.Medico;
+import sistemamedico.UtilsEntradas;
 
 /**
  *
@@ -25,6 +29,76 @@ public class ConsultasObjetos {
         objBD.conectar();
         con = objBD.getConexion();
     }  
+    
+    public HistoriaClinica getHistoriaClinica(int id_paciente) throws Exception{
+        try {
+            pstmt = con.prepareStatement(
+                "select" +
+                "    id_historia," +
+                "    ahf," +
+                "    apnp," +
+                "    perinatales," +
+                "    talla," +
+                "    apgar," +
+                "    hospitalizado," +
+                "    complicaciones," +
+                "    tamiz_metabolico," +
+                "    tamiz_auditivo " +
+                "from historiaClinica where id_paciente = ?"
+            );
+            pstmt.setInt(1, id_paciente);
+                        
+            resultado = pstmt.executeQuery();            
+            
+            if(resultado != null && resultado.next()){                
+                
+                int id_historia = resultado.getInt("id_historia");                
+                String ahf = resultado.getString("ahf");                
+                String apnp = resultado.getString("apnp");                
+                double talla = resultado.getDouble("talla");                
+                String apgar = resultado.getString("apgar");                                
+                String complicaciones = resultado.getString("complicaciones");                
+                String tamiz_metabolico = resultado.getString(
+                    "tamiz_metabolico"
+                );                
+                String tamiz_auditivo = resultado.getString("tamiz_auditivo");                                               
+                
+                String hospitalizado_str = resultado.getString("hospitalizado");
+                Date hospitalizado;                
+                try{
+                    hospitalizado = UtilsEntradas.getFechaDeStringSQL(
+                        hospitalizado_str
+                    );
+                } catch(java.lang.NullPointerException e){
+                    hospitalizado = new Date();
+                } catch(ParseException e){
+                    System.out.println(e.toString());
+                    throw new Exception(
+                        "La fecha de hospitalización almacenada no está en " +
+                        "formato aaaa-mm-ddd"
+                    );
+                }                
+
+                return new HistoriaClinica(
+                    id_historia,
+                    ahf,
+                    apnp,
+                    complicaciones,
+                    talla,
+                    apgar,
+                    hospitalizado,
+                    complicaciones,
+                    tamiz_metabolico,
+                    tamiz_auditivo
+                );
+            } else {
+                throw new Exception("No hay paciente con ese ID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        }          
+    }
     
     public Medico getMedico(String id_medico) throws Exception{
         try {

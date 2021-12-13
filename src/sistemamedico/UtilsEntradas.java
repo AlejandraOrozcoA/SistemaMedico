@@ -13,10 +13,20 @@ import java.util.Date;
  * @author angel
  */
 public class UtilsEntradas {    
-    public static Date getFechaDeString(String fecha_str) throws ParseException {
+    public static Date getFechaDeString(
+        String fecha_str
+    ) throws ParseException {
         String patron = "dd/MM/yyyy";
         SimpleDateFormat formato = new SimpleDateFormat(patron);
         return formato.parse(fecha_str);        
+    }
+    
+    public static Date getFechaDeStringSQL(
+        String fecha_str
+    ) throws ParseException{
+        String patron = "yyyy-MM-dd";
+        SimpleDateFormat formato = new SimpleDateFormat(patron);
+        return formato.parse(fecha_str);
     }
     
     public static String getStringDeFecha(Date fecha) {
@@ -29,5 +39,5 @@ public class UtilsEntradas {
         String patron = "yyyy-MM-dd";
         SimpleDateFormat formato = new SimpleDateFormat(patron);
         return formato.format(fecha);
-    }
+    }       
 }
