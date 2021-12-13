@@ -182,7 +182,7 @@ public class ConsultasObjetos {
                     );
                 }                
 
-                return new Cita(id_paciente, fecha);
+                return new Cita(IDCita, id_paciente, fecha);
             } else {
                 throw new Exception("No hay cita con ese ID");
             }

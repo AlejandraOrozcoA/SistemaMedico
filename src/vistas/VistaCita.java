@@ -4,9 +4,12 @@
  */
 package vistas;
 
+import Controlador.ActualizacionesObjetos;
+import Controlador.BajasObjetos;
 import Controlador.ConsultasObjetos;
 import java.text.ParseException;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import sistemamedico.Cita;
 import sistemamedico.UtilsEntradas;
 
@@ -121,6 +124,11 @@ public class VistaCita extends javax.swing.JFrame {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/delete.png"))); // NOI18N
         jButton4.setText("Eliminar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,7 +158,7 @@ public class VistaCita extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
+                        .addGap(130, 130, 130)
                         .addComponent(jLabel1)))
                 .addContainerGap(576, Short.MAX_VALUE))
         );
@@ -192,12 +200,80 @@ public class VistaCita extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        try{
+            Date fecha;
+            try{                
+               fecha = UtilsEntradas.getFechaDeString(jTextField2.getText());                
+            } catch(ParseException e){
+                throw new Exception(
+                    "La fecha debe estar en formato dd/mm/aaaa"
+                );
+            }
+            
+            Date hora;
+            try{                
+                hora = UtilsEntradas.getHoraDeString(jTextField3.getText());
+            } catch(ParseException e){
+                throw new Exception(
+                    "La hora debe estar en formato hh:mm"
+                );
+            }
+            
+            Date fecha_hora = new Date(
+                fecha.getYear(),
+                fecha.getMonth(),
+                fecha.getDate(),
+                hora.getHours(),
+                hora.getMinutes()
+            );
+            
+            Cita cita_editada = new Cita(
+                cita.getId(),
+                cita.getIDPaciente(),
+                fecha_hora
+            );
+            
+            if(
+                VentanasEmergentes.confirmarOperacion(
+                    "¿Seguro que quieres guardar los datos?"
+                )
+            ){  
+                ActualizacionesObjetos ao = new ActualizacionesObjetos();
+                ao.actualizarCita(cita_editada);  
+                cita = cita_editada;
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Datos actualizados con éxito"
+                );                
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());               
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         rellenaCampos();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try{
+            if(
+                VentanasEmergentes.confirmarOperacion(
+                    "¿Seguro que quieres eliminar la cita?"
+                )
+            ){
+                BajasObjetos bo = new BajasObjetos();
+                bo.eliminarCita(cita);
+                
+                JOptionPane.showMessageDialog(null, "Se eliminó con éxito");
+                
+                this.setVisible(false);
+                framePadre.setVisible(true);
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());               
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

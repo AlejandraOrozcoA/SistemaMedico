@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import sistemamedico.Cita;
 import sistemamedico.HistoriaClinica;
 import sistemamedico.UtilsEntradas;
 
@@ -57,6 +58,31 @@ public class ActualizacionesObjetos {
             pstmt.setString(9, historia.getTamizAuditivo());
             pstmt.setInt(10, historia.getIDHistoria());
                         
+            int columnas = pstmt.executeUpdate();                        
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se modificó");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
+    }
+    
+    public void actualizarCita(Cita cita) throws Exception {
+        try{
+            pstmt = con.prepareStatement(
+                "update cita set" +                
+                "    fecha = ? " +                
+                "where id_cita = ?"
+            );
+            
+            pstmt.setString(
+                1,
+                UtilsEntradas.getStringFHMySQLDeFecha(cita.getFecha())
+            );
+            
+            pstmt.setInt(2, cita.getId());
+            
             int columnas = pstmt.executeUpdate();                        
             if(columnas == 0){
                 throw new Exception("Error. Ninguna columna se modificó");

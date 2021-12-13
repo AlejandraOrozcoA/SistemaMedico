@@ -25,7 +25,8 @@ public class Cita {
         this.medico = medico;
     }
     
-    public Cita(int IDPaciente, Date fecha){
+    public Cita(int IDCita, int IDPaciente, Date fecha){
+        this.id = IDCita;                
         this.IDPaciente = IDPaciente;
         this.fecha = fecha;
     }
