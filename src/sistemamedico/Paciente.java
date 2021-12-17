@@ -22,6 +22,10 @@ public class Paciente extends Persona {
         this.medico = medico;
     }
 
+    public Paciente() {
+        
+    }
+
     public Date getFechaN() {
         return fechaN;
     }
