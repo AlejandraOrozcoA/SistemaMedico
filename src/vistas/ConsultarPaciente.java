@@ -22,7 +22,7 @@ import sistemamedico.Paciente;
  * @author Ale
  */
 public class ConsultarPaciente extends javax.swing.JFrame {
-
+    
     /** Creates new form NewJFrame */
     public ConsultarPaciente() {
         initComponents();
@@ -50,7 +50,6 @@ public class ConsultarPaciente extends javax.swing.JFrame {
         txtContacto = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -102,8 +101,6 @@ public class ConsultarPaciente extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Ver Historia Clinica");
-
         jLabel3.setText("Nombre del paciente");
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -142,14 +139,7 @@ public class ConsultarPaciente extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(txtMedico))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
+                        .addComponent(jLabel6)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -158,7 +148,12 @@ public class ConsultarPaciente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -231,7 +226,6 @@ public class ConsultarPaciente extends javax.swing.JFrame {
                 .addComponent(txtContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
                     .addComponent(jButton3)
                     .addComponent(jButton2))
                 .addContainerGap())
@@ -424,7 +418,6 @@ public class ConsultarPaciente extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
