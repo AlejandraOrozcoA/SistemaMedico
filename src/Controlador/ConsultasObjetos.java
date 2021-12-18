@@ -205,6 +205,55 @@ public class ConsultasObjetos {
         } 
     }
     
+    public ArrayList<Cita> getCitas(Date fecha) throws Exception {
+        
+        ArrayList<Cita> citas = new ArrayList<Cita>();        
+        
+        try {
+            pstmt = con.prepareStatement(
+                "SELECT" +
+                "    id_cita," +                
+                "    fecha " +                
+                "FROM cita where DATE(fecha) = ? " +
+                "ORDER BY fecha"
+            );            
+            pstmt.setString(1, UtilsEntradas.getStringMySQLDeFecha(fecha));
+                        
+            resultado = pstmt.executeQuery();            
+            
+            if(resultado != null){                   
+                while(resultado.next()){
+                
+                    int id_cita = resultado.getInt("id_cita"); 
+
+                    String fecha_hora_str = resultado.getString("fecha");
+                    Date fecha_hora;                
+                    try{
+                        fecha = UtilsEntradas.getFechaDeStringFHSQL(
+                            fecha_hora_str
+                        );
+                    } catch(java.lang.NullPointerException e){
+                        fecha_hora = new Date();
+                    } catch(ParseException e){
+                        System.out.println(e.toString());
+                        throw new Exception(
+                            "La fecha no está almacenada en formato " +
+                            "aaaa-mm-dd hh:mm:ss"
+                        );
+                    }                
+
+                    citas.add(new Cita(id_cita, fecha));
+                }
+                return citas;
+            } else {
+                throw new Exception("No hay cita con ese ID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
+    }
+    
     public Paciente getPacente(int IDpaciente) throws Exception{
         try {
             pstmt = con.prepareStatement(

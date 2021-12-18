@@ -31,6 +31,11 @@ public class Cita {
         this.fecha = fecha;
     }
     
+    public Cita(int IDCita, Date fecha){
+        this.id = IDCita;
+        this.fecha = fecha;
+    }
+    
     public int getIDPaciente(){
         return this.IDPaciente;
     }
