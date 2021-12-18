@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import sistemamedico.Cita;
 
 /**
@@ -40,4 +41,22 @@ public class BajasObjetos {
             throw new Exception(ConexionBD.MENSAJE_ERROR);
         }
     }
+    
+    public void eliminarPaciente(int IDpaciente) throws Exception {
+        try{
+            pstmt = con.prepareStatement("delete from persona where id_persona = (select id_persona from paciente where id_paciente = ?)");            
+            pstmt.setInt(1, IDpaciente);
+            
+            int columnas = pstmt.executeUpdate();
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se eliminó");
+            }else{
+                JOptionPane.showMessageDialog(null, "Operación realizada correctamente");
+            }
+        } catch(SQLException e){
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        }
+    }
+    
 }
