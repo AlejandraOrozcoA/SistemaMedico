@@ -6,9 +6,12 @@
 
 package vistas;
 
+import Controlador.ActualizacionesObjetos;
 import Controlador.BajasObjetos;
 import Controlador.ConsultasObjetos;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -54,6 +57,9 @@ public class ConsultarPaciente extends javax.swing.JFrame {
         txtEdad = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtTel = new javax.swing.JTextField();
+        txtApP = new javax.swing.JTextField();
+        txtApM = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +96,11 @@ public class ConsultarPaciente extends javax.swing.JFrame {
         });
 
         jButton3.setText("Modificar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Ver Historia Clinica");
 
@@ -104,6 +115,13 @@ public class ConsultarPaciente extends javax.swing.JFrame {
         jLabel7.setText("Edad");
 
         jLabel8.setText("Telefono");
+
+        jButton5.setText("Limpiar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,14 +138,6 @@ public class ConsultarPaciente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtNombre))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(27, 27, 27)
                         .addComponent(txtMedico))
@@ -135,24 +145,20 @@ public class ConsultarPaciente extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(textID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton3)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFecha)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(textID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -166,6 +172,24 @@ public class ConsultarPaciente extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(txtTel))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFecha)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(txtApP, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17)
+                                .addComponent(txtApM, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap(303, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,11 +200,15 @@ public class ConsultarPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(textID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addGap(4, 4, 4)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -242,7 +270,9 @@ public class ConsultarPaciente extends javax.swing.JFrame {
            }
             //Asigna valores a los campos de texto
             try {
-              txtNombre.setText(paciente.getNombre()+" "+paciente.getApellidoPaterno()+" "+paciente.getApellidoMaterno());
+              txtNombre.setText(paciente.getNombre());
+              txtApP.setText(paciente.getApellidoPaterno());
+              txtApM.setText(paciente.getApellidoMaterno());
               txtTel.setText(String.valueOf(paciente.getTelefono()));
               txtContacto.setText(paciente.getContactoEmergencia());
               txtEdad.setText(String.valueOf(paciente.getEdad()));
@@ -272,6 +302,8 @@ public class ConsultarPaciente extends javax.swing.JFrame {
         }else{
             BajasObjetos baja = new BajasObjetos();
             txtNombre.setText(" ");
+            txtApP.setText(" ");
+            txtApM.setText(" ");
             txtTel.setText(" ");
             txtContacto.setText(" ");
             txtEdad.setText(" ");
@@ -285,6 +317,76 @@ public class ConsultarPaciente extends javax.swing.JFrame {
            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        if (textID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Ingresa un ID"); //valida que el campo id no este vacio
+        }else{
+            ConsultasObjetos buscar = new ConsultasObjetos();
+            Paciente paciente = new Paciente();
+            try {
+                paciente = buscar.getPacente(Integer.parseInt(textID.getText()));
+            } catch (Exception ex) {
+                Logger.getLogger(ConsultarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ActualizacionesObjetos update = new ActualizacionesObjetos();
+            
+            paciente.setNombre(txtNombre.getText());
+            paciente.setApellidoPaterno(txtApP.getText());
+            paciente.setApellidoMaterno(txtApM.getText());
+            paciente.setContactoEmergencia(txtContacto.getText());
+            paciente.setEdad(Integer.parseInt(txtEdad.getText()));
+            paciente.setTelefono(Long.parseLong(txtTel.getText()));
+            
+            String fechaN_str = txtFecha.getText();
+            Date fecha = null;
+            try {
+                fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaN_str);
+            } catch (ParseException ex) {
+                Logger.getLogger(ConsultarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            paciente.setFechaN(fecha);
+            
+            try {
+                update.actualizarPaciente(Integer.parseInt(textID.getText()), paciente);
+            } catch (Exception ex) {
+                Logger.getLogger(ConsultarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            txtNombre.setText(" ");
+            txtApP.setText(" ");
+            txtApM.setText(" ");
+            txtTel.setText(" ");
+            txtContacto.setText(" ");
+            txtEdad.setText(" ");
+            txtFecha.setText(" ");
+            txtMedico.setText(" ");
+            
+            
+            
+            
+           try {
+               paciente = buscar.getPacente(Integer.parseInt(textID.getText()));
+               update.actualizarPaciente(Integer.parseInt(textID.getText()), paciente);
+               
+           } catch (Exception ex) {
+               Logger.getLogger(ConsultarPaciente.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+            txtNombre.setText(" ");
+            textID.setText(" ");
+            txtApP.setText(" ");
+            txtApM.setText(" ");
+            txtTel.setText(" ");
+            txtContacto.setText(" ");
+            txtEdad.setText(" ");
+            txtFecha.setText(" ");
+            txtMedico.setText(" ");
+    }//GEN-LAST:event_jButton5ActionPerformed
      
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -323,6 +425,7 @@ public class ConsultarPaciente extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -333,6 +436,8 @@ public class ConsultarPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField textID;
+    private javax.swing.JTextField txtApM;
+    private javax.swing.JTextField txtApP;
     private javax.swing.JTextField txtContacto;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtFecha;

@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 import sistemamedico.Cita;
 import sistemamedico.HistoriaClinica;
+import sistemamedico.Paciente;
 import sistemamedico.UtilsEntradas;
 
 /**
@@ -86,6 +89,64 @@ public class ActualizacionesObjetos {
             int columnas = pstmt.executeUpdate();                        
             if(columnas == 0){
                 throw new Exception("Error. Ninguna columna se modificó");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
+    }
+    
+    public void actualizarPaciente(int IDpaciente,Paciente paciente) throws Exception {
+        try{
+            pstmt = con.prepareStatement(
+                "update paciente set" +                
+                "    fecha_n = ?," +
+                "    contacto_e = ?" +
+                "where id_paciente = ?"
+            );
+            
+            
+            SimpleDateFormat formato =  new SimpleDateFormat("yyyy-MM-dd");
+            pstmt.setString(1, formato.format(paciente.getFechaN()));
+            pstmt.setString(2, paciente.getContactoEmergencia());
+            pstmt.setString(3, String.valueOf(IDpaciente));
+            
+            int columnas = pstmt.executeUpdate();                        
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se modificó");
+            }else{
+                this.actualizarPersonaPaciente(IDpaciente, paciente);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
+    }
+    
+    public void actualizarPersonaPaciente(int IDpaciente, Paciente paciente) throws Exception {
+        try{
+            pstmt = con.prepareStatement(
+                "update persona set" +                
+                "    nombre = ?," + 
+                "    apellido_p = ?," + 
+                "    apellido_m = ?," + 
+                "    edad = ?," + 
+                "    telefono = ?" + 
+                "where id_persona = (select id_persona from paciente where id_paciente = ?)"
+            );
+            
+            pstmt.setString(1, paciente.getNombre());
+            pstmt.setString(2, paciente.getApellidoPaterno());
+            pstmt.setString(3, paciente.getApellidoMaterno());
+            pstmt.setString(4, String.valueOf(paciente.getEdad()));
+            pstmt.setString(5, String.valueOf(paciente.getTelefono()));
+            pstmt.setString(6, String.valueOf(IDpaciente));
+            
+            int columnas = pstmt.executeUpdate();                        
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se modificó");
+            }else{
+                JOptionPane.showMessageDialog(null, "Operación realizada correctamente");
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
