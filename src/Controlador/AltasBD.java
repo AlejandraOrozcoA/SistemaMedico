@@ -289,7 +289,71 @@ public class AltasBD {
             }
         } catch(SQLException e){
             System.out.println(e.toString());
-            throw new Exception("Error conectándose a la base");
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        }
+    }
+    
+    public void registrarVacuna(int IDHistoria, String nombre) throws Exception {
+         try{
+            pstmt = con.prepareStatement(
+                "INSERT INTO vacuna(" + 
+                    "   id_historia," +
+                    "   nombre" +                    
+                    ") VALUES(?, ?)",
+                Statement.RETURN_GENERATED_KEYS
+            );
+            
+            pstmt.setInt(1, IDHistoria);
+            pstmt.setString(2, nombre);
+            
+            int columnas = pstmt.executeUpdate();
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se creó");
+            }
+        } catch(SQLException e){
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        }
+    }
+    
+    public void registrarConsultaSubsecuente(
+            int IDHistoria,
+            String pa,
+            String ef,
+            String dx,
+            String tx,
+            String estudios,
+            Date fecha
+    ) throws Exception {
+         try{
+            pstmt = con.prepareStatement(
+                "INSERT INTO consultaSubsecuente(" + 
+                    "   id_historia," +
+                    "   pa," +
+                    "   ef," +
+                    "   dx," +
+                    "   tx," +
+                    "   estudios," +
+                    "   fecha" +
+                    ") VALUES(?, ?, ?, ?, ?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS
+            );
+            
+            pstmt.setInt(1, IDHistoria);
+            pstmt.setString(2, pa);
+            pstmt.setString(3, ef);
+            pstmt.setString(4, dx);
+            pstmt.setString(5, tx);
+            pstmt.setString(6, estudios);
+            pstmt.setString(7, UtilsEntradas.getStringMySQLDeFecha(fecha));
+            
+            int columnas = pstmt.executeUpdate();
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se creó");
+            }
+        } catch(SQLException e){
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
         }
     }
 }

@@ -4,6 +4,7 @@
  */
 package vistas;
 
+import Controlador.AltasBD;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -88,5 +89,30 @@ public class VentanasEmergentes {
             return true;                            
         }
         return false;
+    }
+    
+    public static void agregaVacuna(int IDHistoria) throws Exception {
+        JTextField campoNombre = new JTextField(15);        
+
+        JPanel myPanel = new JPanel();
+        myPanel.add(new JLabel("Nombre vacuna:"));
+        myPanel.add(campoNombre);
+
+        int result = JOptionPane.showConfirmDialog(
+            null,
+            myPanel,
+            "Introduzca el nombre de la vacuna",
+            JOptionPane.OK_CANCEL_OPTION
+        );
+        
+        if (result == JOptionPane.OK_OPTION) {
+            String nombre = campoNombre.getText();            
+                        
+            AltasBD altas = new AltasBD();
+            
+            altas.registrarVacuna(IDHistoria, nombre);
+            
+            JOptionPane.showMessageDialog(null, "Vacuna agregada");
+        }        
     }
 }
