@@ -15,6 +15,8 @@ public class Paciente extends Persona {
     private Date fechaN;
     private String contactoEmergencia;
     private Medico medico;
+    private double peso;
+    private double talla;
 
     public Paciente(Date fechaN, String contactoEmergencia, Medico medico) {
         this.fechaN = fechaN;
@@ -106,6 +108,11 @@ public class Paciente extends Persona {
         this.telefono = telefono;
     }
     
+    public double getPeso(){
+        return this.peso;
+    }
     
-    
+    public double getTalla(){
+        return this.talla;  
+    }
 }

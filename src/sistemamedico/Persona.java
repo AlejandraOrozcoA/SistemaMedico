@@ -18,5 +18,7 @@ public abstract class Persona {
     protected String direccion;
     protected Long telefono;
     
-    
+    public String getNombreCompleto(){
+        return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+    }
 }

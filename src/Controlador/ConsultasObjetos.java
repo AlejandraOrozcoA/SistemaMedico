@@ -143,8 +143,9 @@ public class ConsultasObjetos {
                 char turno = turno_str.charAt(0);
 
                 String especialidad = resultado.getString("especialidad");
+                                                
                 int id_persona = resultado.getInt("id_persona");
-                ArrayList datosP = this.getPersona(id_persona);
+                ArrayList datosP = this.getPersona(id_persona);                                
                 
                 Medico med = new Medico(cedula, consultorio, turno, especialidad); 
                 med.setNombre((String)datosP.get(0));
@@ -152,6 +153,7 @@ public class ConsultasObjetos {
                 med.setApellidoMaterno((String)datosP.get(2));
                 med.setEdad((int)datosP.get(3));
                 med.setTelefono((Long)datosP.get(4));
+                med.setDireccion((String) datosP.get(5));                                
 
                 return med;    
             } else {
@@ -295,6 +297,39 @@ public class ConsultasObjetos {
         } 
     }
     
+    public String getDireccion(int IDDireccion) throws Exception {
+        try {
+            pstmt = con.prepareStatement(
+               "select * from direccion where id_dir = ?"
+            );
+            pstmt.setInt(1, IDDireccion);
+                        
+            resultado = pstmt.executeQuery();            
+            
+            if(resultado != null && resultado.next()){ 
+                
+                String calle = resultado.getString("calle");
+                String colonia = resultado.getString("colonia");
+                String municipio = resultado.getString("municipio");
+                String estado = resultado.getString("estado");
+                int num_int = resultado.getInt("num_int");
+                int num_ext = resultado.getInt("num_ext");
+                int cp = resultado.getInt("cp");                
+                
+                String direccion = calle + " " + num_ext + ", int. " + num_int +
+                    ". " + colonia + ". " + municipio + ". " + estado + 
+                    ". C. P. " + cp ;
+                
+                return direccion;
+            } else {
+                throw new Exception("No hay direccion con ese ID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
+    }
+    
     public ArrayList getPersona(int IDpersona) throws Exception{
         try {
             pstmt = con.prepareStatement(
@@ -311,6 +346,8 @@ public class ConsultasObjetos {
                 String apM = resultado.getString("apellido_m");
                 int edad = resultado.getInt("edad");                
                 Long tel= resultado.getLong("telefono");
+                int id_direccion = resultado.getInt("id_direccion");
+                String direccion = getDireccion(id_direccion);
                 
                 ArrayList arr = new ArrayList();
                 arr.add(nombre);
@@ -318,6 +355,7 @@ public class ConsultasObjetos {
                 arr.add(apM);
                 arr.add(edad);
                 arr.add(tel);
+                arr.add(direccion);
                 return arr;
             } else {
                 throw new Exception("No hay paciente con ese ID");

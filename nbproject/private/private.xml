@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/vistas/ConsultarPaciente.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/sistemamedico/Medico.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/Controlador/ConsultasObjetos.java</file>
-            <file>file:/C:/Users/Ale/Documents/NetBeansProjects/SistemaMedico/src/Controlador/AltasBD.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/Controlador/ConexionBD.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/ProximasCitas.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/Cita.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/Controlador/ConsultasObjetos.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/menuMedico.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/Controlador/ActualizacionesObjetos.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/CitasDia.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/Receta.java</file>
         </group>
     </open-files>
 </project-private>

@@ -110,5 +110,7 @@ public class Medico extends Persona{
         this.telefono = telefono;
     }
     
-    
+    public String getMensajeFooter(){
+        return this.direccion + " - " + this.telefono + " - Previa cita";
+    }        
 }

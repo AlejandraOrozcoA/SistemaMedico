@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import sistemamedico.UtilsEntradas;
 
 /**
@@ -304,7 +305,8 @@ public class ProximasCitas extends javax.swing.JFrame {
             CitasDia citas_dia = new CitasDia(fecha_str, this);
             citas_dia.setVisible(true);
             this.setVisible(false);
-        } catch(Exception e){
+        } catch(Exception e){            
+            JOptionPane.showMessageDialog(null, e.getMessage()); 
         }
     }
     
