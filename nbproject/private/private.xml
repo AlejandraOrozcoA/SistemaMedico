@@ -5,12 +5,29 @@
         <group>
             <file>file:/home/angel/Documents/otro/SistemaMedico/src/Controlador/ConexionBD.java</file>
             <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/ProximasCitas.java</file>
-            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/Cita.java</file>
-            <file>file:/home/angel/Documents/otro/SistemaMedico/src/Controlador/ConsultasObjetos.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/Receta.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/AgregarConsulta.java</file>
             <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/menuMedico.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/Controlador/AltasBD.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/ConsultaSubsecuente.java</file>
             <file>file:/home/angel/Documents/otro/SistemaMedico/src/Controlador/ActualizacionesObjetos.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/VistaHistoriaClinica.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/ConsultarPaciente.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/HistoriaClinica.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/Paciente.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/SolicitarCita.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/VentanasEmergentes.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/SistemaMedico.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/Persona.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/Controlador/ConsultasObjetos.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/Medico.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/AdminAcceso.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/menuSecretaria.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/UtilsEntradas.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/Cita.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/sistemamedico/Login.java</file>
             <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/CitasDia.java</file>
-            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/Receta.java</file>
+            <file>file:/home/angel/Documents/otro/SistemaMedico/src/vistas/CapturarTratamiento.java</file>
         </group>
     </open-files>
 </project-private>

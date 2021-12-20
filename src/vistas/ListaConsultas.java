@@ -4,63 +4,46 @@
  */
 package vistas;
 
-import sistemamedico.Cita;
 import Controlador.ConsultasObjetos;
 import java.awt.Dimension;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import sistemamedico.Cita;
+import sistemamedico.ConsultaSubsecuente;
 import sistemamedico.UtilsEntradas;
 
 /**
  *
  * @author angel
  */
-public class CitasDia extends javax.swing.JFrame {
-    
-    private Date fecha;
-    private String fecha_str;    
+public class ListaConsultas extends javax.swing.JFrame {
+    int IDHistoria;
     javax.swing.JPanel panel;
     javax.swing.JScrollPane scroll;
     javax.swing.JLabel l1, l2, titulo;
     javax.swing.JButton b1, b2, atras;
     javax.swing.JFrame framePadre;
     
-    ArrayList<Cita> citas;
+    ArrayList<ConsultaSubsecuente> consultas;
     ArrayList<javax.swing.JLabel> fechas;
     ArrayList<javax.swing.JButton> botones;
     
-    public javax.swing.JButton creaBoton(Cita cita) {
-        javax.swing.JButton boton = new javax.swing.JButton("Ver");
-        boton.addActionListener((java.awt.event.ActionEvent evt) -> {
-            try {
-                VistaCita vista_cita = new VistaCita(
-                    Integer.toString(cita.getId()),
-                    this
-                );
-            } catch(Exception e){
-
-            }
-        });
-        return boton;
-    }    
-    
     public void colocaHoras(javax.swing.JPanel panel) throws Exception{
         ConsultasObjetos co = new ConsultasObjetos();
-        citas = co.getCitas(this.fecha);
+        consultas = co.getConsultas(this.IDHistoria);
         
-        panel.setSize(370, 200 + 50 * citas.size());                
+        panel.setSize(370, 200 + 50 * consultas.size());                
         
         fechas = new ArrayList<javax.swing.JLabel>();
         botones = new ArrayList<javax.swing.JButton>();
                                 
-        int n = citas.size();                
+        int n = consultas.size();                
         for(int i = 0; i < n; i++){            
-            Cita cita = citas.get(i);
+            ConsultaSubsecuente consulta = consultas.get(i);
             
             fechas.add(new javax.swing.JLabel(
-                UtilsEntradas.getHoradeFecha(cita.getFecha())
+                UtilsEntradas.getStringDeFecha(consulta.getFecha())
             ));
             fechas.get(i).setBounds(30, 80 + 50 * i, 100, 30);
             
@@ -69,11 +52,11 @@ public class CitasDia extends javax.swing.JFrame {
             botones.get(i).addActionListener(
                 (java.awt.event.ActionEvent evt) -> {
                     try {
-                        VistaCita vista_cita = new VistaCita(
-                            Integer.toString(cita.getId()),
+                        VistaConsulta vista_consulta = new VistaConsulta(
+                            consulta,
                             this.framePadre
                         );
-                        vista_cita.setVisible(true);
+                        vista_consulta.setVisible(true);
                         this.setVisible(false);
                     } catch(Exception e){
                         JOptionPane.showMessageDialog(null, e.getMessage());               
@@ -103,7 +86,7 @@ public class CitasDia extends javax.swing.JFrame {
         
         // b1 = new javax.swing.JButton("Ver");
         // b2 = new javax.swing.JButton("Ver");                    
-        titulo = new javax.swing.JLabel("Citas de " + fecha_str);
+        titulo = new javax.swing.JLabel("Lista de consultas subsecuentes");
         titulo.setFont(new java.awt.Font("Ubuntu", 3, 15));
         titulo.setBounds(0, 25, 400, 30);
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -125,7 +108,7 @@ public class CitasDia extends javax.swing.JFrame {
             this.setVisible(false);
             this.framePadre.setVisible(true);
         });  
-        atras.setBounds(30, 100 + 50 * citas.size() , 100, 30);
+        atras.setBounds(30, 100 + 50 * consultas.size() , 100, 30);
         panel.add(atras);
         
         scroll = new javax.swing.JScrollPane();
@@ -135,14 +118,13 @@ public class CitasDia extends javax.swing.JFrame {
         add(scroll);                            
     }
     
-    public CitasDia(
-        String fecha_str,
+    public ListaConsultas(
+        int IDHistoria,
         javax.swing.JFrame framePadre
     ) throws Exception{                
-        this.fecha_str = fecha_str;
-        this.framePadre = framePadre;
-        this.fecha = UtilsEntradas.getFechaDeString(fecha_str);        
+        this.IDHistoria = IDHistoria;
+        this.framePadre = framePadre;        
         
         initComponents();        
-    }           
+    }  
 }

@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import sistemamedico.Cita;
+import sistemamedico.ConsultaSubsecuente;
 import sistemamedico.HistoriaClinica;
 import sistemamedico.Medico;
 import sistemamedico.Paciente;
@@ -247,6 +248,99 @@ public class ConsultasObjetos {
                     citas.add(new Cita(id_cita, fecha));
                 }
                 return citas;
+            } else {
+                throw new Exception("No hay cita con ese ID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
+    }
+    
+    public ArrayList<String> getVacunas(int IDHistoria) throws Exception {
+        
+        ArrayList<String> vacunas = new ArrayList<String>();        
+        
+        try {
+            pstmt = con.prepareStatement(
+                "SELECT" +
+                "    nombre " +                                
+                "FROM vacuna where id_historia = ?"
+            );            
+            pstmt.setInt(1,IDHistoria);
+                        
+            resultado = pstmt.executeQuery();            
+            
+            if(resultado != null){                   
+                while(resultado.next()){                
+                    String nombre = resultado.getString("nombre"); 
+                    vacunas.add(nombre);
+                }
+                return vacunas;
+            } else {
+                throw new Exception("No hay cita con ese ID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
+    }
+    
+    public ArrayList<ConsultaSubsecuente> getConsultas(
+        int IDHistoria
+    ) throws Exception {        
+        ArrayList<ConsultaSubsecuente> consultas =
+            new ArrayList<ConsultaSubsecuente>();
+        
+        try {
+            pstmt = con.prepareStatement(
+                "SELECT" +
+                "    id_consulta," +
+                "    pa," +                
+                "    ef," +
+                "    dx," +
+                "    tx," +
+                "    estudios," +
+                "    fecha " +
+                "FROM consultaSubsecuente WHERE id_historia = ? " +
+                "ORDER BY fecha"
+            );            
+            pstmt.setInt(1, IDHistoria);
+                        
+            resultado = pstmt.executeQuery();            
+            
+            if(resultado != null){                   
+                while(resultado.next()){
+                
+                    int id_consulta = resultado.getInt("id_consulta");
+                    String pa = resultado.getString("pa");
+                    String ef = resultado.getString("ef");
+                    String dx = resultado.getString("dx");
+                    String tx = resultado.getString("tx");
+                    String estudios = resultado.getString("estudios");
+                    String fecha_str = resultado.getString("fecha");
+                    
+                    Date fecha;
+                    try{
+                        fecha = UtilsEntradas.getFechaDeStringSQL(fecha_str);
+                    } catch(ParseException e){
+                        System.out.println(e.toString());
+                        throw new Exception(
+                            "La fecha no está almacenada en formato dd-mm-aaaa"
+                        );
+                    }
+
+                    consultas.add(new ConsultaSubsecuente(
+                        id_consulta,
+                        pa,
+                        ef,
+                        dx,
+                        tx,
+                        estudios,
+                        fecha
+                    ));                    
+                }
+                return consultas;
             } else {
                 throw new Exception("No hay cita con ese ID");
             }

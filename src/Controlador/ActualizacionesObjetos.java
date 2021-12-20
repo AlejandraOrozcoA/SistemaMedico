@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import sistemamedico.Cita;
+import sistemamedico.ConsultaSubsecuente;
 import sistemamedico.HistoriaClinica;
 import sistemamedico.Paciente;
 import sistemamedico.UtilsEntradas;
@@ -86,6 +87,43 @@ public class ActualizacionesObjetos {
             
             pstmt.setInt(2, cita.getId());
             
+            int columnas = pstmt.executeUpdate();                        
+            if(columnas == 0){
+                throw new Exception("Error. Ninguna columna se modificó");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            throw new Exception(ConexionBD.MENSAJE_ERROR);
+        } 
+    }
+    
+    public void actualizarConsulta(
+        ConsultaSubsecuente consulta
+    ) throws Exception {
+        try{
+            pstmt = con.prepareStatement(
+                "update consultaSubsecuente set" +
+                "    pa = ?," +
+                "    ef = ?," +
+                "    dx = ?," +
+                "    tx = ?," +
+                "    estudios = ?," +
+                "    fecha = ? " +
+                "where id_consulta = ?"
+            );
+            System.out.println(pstmt.toString());
+            
+            pstmt.setString(1, consulta.getPa());
+            pstmt.setString(2, consulta.getEf());
+            pstmt.setString(3, consulta.getDx());
+            pstmt.setString(4, consulta.getTx());
+            pstmt.setString(5, consulta.getEstudios());
+            pstmt.setString(
+                6,
+                UtilsEntradas.getStringMySQLDeFecha(consulta.getFecha())
+            );
+            pstmt.setInt(7, consulta.getIDConsultaSubsecuente());
+                                    
             int columnas = pstmt.executeUpdate();                        
             if(columnas == 0){
                 throw new Exception("Error. Ninguna columna se modificó");

@@ -18,14 +18,25 @@ public class ConsultaSubsecuente {
     private String ef;
     private String dx;
     private String tx;
-    private ArrayList<String> estudios = new ArrayList<String>();
+    private String estudios;
     private Date fecha;
-
-    public ConsultaSubsecuente(String pa, String ef, String dx, String tx, Date fecha) {
+    private int IDConsultaSubsecuente;   
+    
+    public ConsultaSubsecuente(
+        int IDConsultaSubsecuente,
+        String pa,
+        String ef,
+        String dx,
+        String tx,
+        String estudios,
+        Date fecha
+    ) {
+        this.IDConsultaSubsecuente = IDConsultaSubsecuente;
         this.pa = pa;
         this.ef = ef;
         this.dx = dx;
         this.tx = tx;
+        this.estudios = estudios;
         this.fecha = fecha;
     }
 
@@ -61,11 +72,11 @@ public class ConsultaSubsecuente {
         this.tx = tx;
     }
 
-    public ArrayList<String> getEstudios() {
+    public String getEstudios() {
         return estudios;
     }
 
-    public void setEstudios(ArrayList<String> estudios) {
+    public void setEstudios(String estudios) {
         this.estudios = estudios;
     }
 
@@ -77,7 +88,7 @@ public class ConsultaSubsecuente {
         this.fecha = fecha;
     }
 
-    
-    
-    
+    public int getIDConsultaSubsecuente(){
+        return this.IDConsultaSubsecuente;
+    }       
 }

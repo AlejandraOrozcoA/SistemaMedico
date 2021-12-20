@@ -179,9 +179,19 @@ public class VistaHistoriaClinica extends javax.swing.JFrame {
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/view.png"))); // NOI18N
         jButton6.setText("Ver vacunas");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/consultante.png"))); // NOI18N
         jButton7.setText("Ver consultas subsecuentes");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -383,6 +393,32 @@ public class VistaHistoriaClinica extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+            ListaVacunas lista_vacunas = new ListaVacunas(
+                historia.getIDHistoria(),
+                this
+            );
+            lista_vacunas.setVisible(true);
+            this.setVisible(false);
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        try{
+            ListaConsultas lista_consultas = new ListaConsultas(
+                historia.getIDHistoria(),
+                this
+            );
+            lista_consultas.setVisible(true);
+            this.setVisible(false);
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
